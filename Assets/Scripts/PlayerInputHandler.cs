@@ -4,19 +4,31 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Movement))]
+[RequireComponent(typeof(HeadRotation))]
 public class PlayerInputHandler : MonoBehaviour
 {
     public float turnSensitivity;
+    public Weapon weapon;
     private Movement _movement;
+    private HeadRotation _headRotation;
 
     void OnValidate()
     {
         _movement = GetComponent<Movement>();
+        _headRotation = GetComponent<HeadRotation>();
+    }
+
+    void Awake()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
     }
     
     public void OnFire(InputValue value)
     {
-        Debug.Log("PewPew");
+        if (weapon != null)
+        {
+            weapon.Fire();
+        }
     }
 
     public void OnMove(InputValue value)
@@ -29,5 +41,6 @@ public class PlayerInputHandler : MonoBehaviour
     {
         Vector2 look = value.Get<Vector2>();
         _movement.desiredLook = look * turnSensitivity;
+        _headRotation.desiredLook = look * turnSensitivity;
     }
 }

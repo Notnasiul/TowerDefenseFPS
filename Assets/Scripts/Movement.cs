@@ -11,6 +11,7 @@ public class Movement : MonoBehaviour
     public Vector2 desiredMovement;
     public Vector2 desiredLook;
     
+    
     private Rigidbody _rigidbody;
 
     void OnValidate()
@@ -27,4 +28,5 @@ public class Movement : MonoBehaviour
         Vector3 strafeVelocity = _rigidbody.transform.right * desiredMovement.x;
         _rigidbody.velocity = (forwardVelocity + strafeVelocity).normalized * (maxSpeed * Time.fixedDeltaTime);
     }
+
 }
