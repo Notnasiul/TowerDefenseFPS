@@ -7,7 +7,9 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     public float maxSpeed;
+    public float rotationSpeed;
     public Vector2 desiredMovement;
+    public Vector2 desiredLook;
     
     private Rigidbody _rigidbody;
 
@@ -18,7 +20,11 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 velocity = new Vector3(desiredMovement.x, 0, desiredMovement.y);
-        _rigidbody.velocity = velocity * (maxSpeed * Time.fixedDeltaTime);
+        Vector3 angularVelocity = new Vector3(0, desiredLook.x, 0);
+        _rigidbody.angularVelocity = angularVelocity * rotationSpeed;
+
+        Vector3 forwardVelocity = _rigidbody.transform.forward * desiredMovement.y;
+        Vector3 strafeVelocity = _rigidbody.transform.right * desiredMovement.x;
+        _rigidbody.velocity = (forwardVelocity + strafeVelocity).normalized * (maxSpeed * Time.fixedDeltaTime);
     }
 }
