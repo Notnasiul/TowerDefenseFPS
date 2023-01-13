@@ -12,6 +12,7 @@ Nuestro **objetivo** consiste en destruir el nido de las criaturas envitando que
 -[x] Movimiento tipo FPS con WASD + Ratón
 -[ ] Disparamos con botón izquierdo del ratón
 -[ ] Creamos o editamos una torreta con el botón derecho
+-[ ] REVISAR la rotación en HeadRotation.cs
 
 ## Terreno
 

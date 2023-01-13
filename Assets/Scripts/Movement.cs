@@ -10,9 +10,9 @@ public class Movement : MonoBehaviour
     public float rotationSpeed;
     public Vector2 desiredMovement;
     public Vector2 desiredLook;
-    
-    
     private Rigidbody _rigidbody;
+
+    private float _rotationY;
 
     void OnValidate()
     {
@@ -21,8 +21,11 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 angularVelocity = new Vector3(0, desiredLook.x, 0);
-        _rigidbody.angularVelocity = angularVelocity * rotationSpeed;
+        _rotationY += desiredLook.x * rotationSpeed * Time.fixedDeltaTime;
+        _rigidbody.rotation = Quaternion.Euler(
+            _rigidbody.rotation.eulerAngles.x,
+            _rotationY,
+            _rigidbody.rotation.eulerAngles.z);
 
         Vector3 forwardVelocity = _rigidbody.transform.forward * desiredMovement.y;
         Vector3 strafeVelocity = _rigidbody.transform.right * desiredMovement.x;
